@@ -4,3 +4,142 @@
 *:after {
   box-sizing: border-box;
 }
+
+header {
+  display: flex;
+  justify-content: space-between;
+  & a {
+    text-decoration: none;
+    color: black;
+  }
+  & span {
+    font-size: 2rem;
+  }
+}
+
+nav > ul {
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+  color: white;
+  background-color: rgb(9, 9, 9);
+  padding: 10px;
+}
+
+.hero-content {
+  & img {
+    width: 80%;
+    position: relative;
+    left: 20%;
+  }
+}
+
+.information {
+  width: 170px;
+  opacity: 0.7;
+  position: absolute;
+  background-color: rgb(228, 228, 228);
+  top: 180px;
+  padding: 3px;
+  display: flex;
+  flex-direction: column;
+  & img {
+    position: relative;
+    left: 0;
+    bottom: 0;
+    width: 60%;
+  }
+  & p,
+  h2 {
+    color: blue;
+    margin: 1px;
+  }
+}
+
+.reviews {
+  & li {
+    margin-top: 10px;
+  }
+}
+
+.upgrades {
+  & .upgrade_images {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    row-gap: 40px;
+  }
+
+  & .outer {
+    background-color: blue;
+    display: flex;
+
+    justify-content: center;
+    & img {
+      align-self: center;
+      height: 80px;
+    }
+    & .link {
+      justify-content: center;
+    }
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+
+  /* @media (min-width: 658px) {
+    flex-direction: row;
+    gap: 20px;
+    
+    
+    & .reviews {
+      order: 2;
+    }
+  } */
+}
+
+@media (min-width: 658px) {
+  nav > ul > li {
+    font-size: 1.5rem;
+  }
+  header {
+    & span {
+      font-size: 3rem;
+    }
+
+    & div > a {
+      font-size: 1.5rem;
+    }
+  }
+  .content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-top: 20px;
+    gap: 20px;
+    justify-content: center;
+    & .reviews {
+      order: 2;
+      justify-self: center;
+      margin-top: 0;
+      font-size: 1.5rem;
+    }
+
+    & .upgrades {
+      margin-top: 0;
+    }
+  }
+
+  .information {
+    left: 60px;
+    top: 200px;
+    justify-content: space-between;
+    width: 350px;
+    height: 280px;
+    & p,
+    h2 {
+      font-size: 2rem;
+    }
+  }
+}
