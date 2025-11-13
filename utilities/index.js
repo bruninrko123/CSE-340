@@ -74,4 +74,18 @@ Util.buildClassificationGrid = async function (data) {
   return grid;
 };
 
+Util.buildDetailsPage = async function (data) {
+  
+  let details;
+  if (data) {
+    details = `
+    <h1>${data.inv_model} ${data.inv_make} - ${data.inv_year}<h1>
+    <img src="${data.inv_image}" alt="${data.inv_model} ${data.inv_make} image">
+    <p>${data.inv_price}</p>
+    <p>${data.inv_description}</p>`;
+  } else {
+    details = `<p>Sorry, we couldn't find this vehicle's details</p>`;
+  }
+  return details;
+};
 module.exports = Util;

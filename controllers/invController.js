@@ -2,7 +2,7 @@ const invModel = require("../models/inventory-model");
 const utilities = require("../utilities");
 
 const invCont = {};
-
+const VehicleDetails = {};
 //build inventory by classification view
 
 invCont.buildByClassificationId = async function (req, res, next) {
@@ -18,4 +18,17 @@ invCont.buildByClassificationId = async function (req, res, next) {
   });
 };
 
-module.exports = invCont;
+VehicleDetails.buildVehicleDetailsById = async function (req, res, next) {
+  const vehicle_Id = req.params.vehicleId;
+  const data = await invModel.getVehicleDetailsById(vehicle_Id);
+  const detailsPage = await utilities.buildDetailsPage(data);
+  const nav = await utilities.getNav();
+  // const carName = data[0].inv_make + data[0].inv_model;
+  res.render("./inventory/detail", {
+    title: "hello",
+    nav,
+    detailsPage,
+  });
+};
+
+module.exports = { invCont, VehicleDetails} ;

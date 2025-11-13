@@ -1,8 +1,10 @@
 //Needed resources
 const express = require("express");
 const router = new express.Router();
-const invController = require("../controllers/invController");
+const {invCont, VehicleDetails} = require("../controllers/invController");
 
-router.get("/type/:classificationId", invController.buildByClassificationId);
+router.get("/type/:classificationId", invCont.buildByClassificationId);
+
+router.get("/detail/:vehicleId", VehicleDetails.buildVehicleDetailsById);
 
 module.exports = router;
