@@ -20,6 +20,7 @@ Util.getNav = async function (req, res, next) {
       "</a>";
     list += "</li>";
   });
+  list += "<a href ='/footer'><li>Error link</li></a>"
   list += "</ul>";
   return list;
 };

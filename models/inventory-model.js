@@ -8,7 +8,8 @@ async function getClassifications() {
       "SELECT * FROM public.classification ORDER BY classification_name"
     );
   } catch (error) {
-    console.error("getClassifications erorr");
+    console.error("getClassifications error");
+    throw error;
   }
 }
 
@@ -25,6 +26,7 @@ async function getInventoryByClassificationId(classification_id) {
     return data.rows;
   } catch (error) {
     console.error("getclassificationsbyid error" + error);
+    throw error;
   }
 }
 
@@ -40,6 +42,7 @@ async function getVehicleDetailsById(vehicleId) {
     return data.rows[0];
   } catch (error) {
     console.error("getVehicleDetailsById error" + error);
+    throw error;
   }
 }
 

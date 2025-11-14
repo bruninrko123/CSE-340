@@ -6,11 +6,15 @@ const VehicleDetails = {};
 //build inventory by classification view
 
 invCont.buildByClassificationId = async function (req, res, next) {
+  
   try {
     const classification_id = req.params.classificationId;
     const data = await invModel.getInventoryByClassificationId(
       classification_id
     );
+    if (!data || data.length === 0) {
+      throw new Error("No vehicles found for this classification");
+    }
     const grid = await utilities.buildClassificationGrid(data);
     let nav = await utilities.getNav();
     const className = data[0].classification_name;
@@ -23,6 +27,7 @@ invCont.buildByClassificationId = async function (req, res, next) {
     console.error(
       "Sorry, we couldn't reach the vehicles for this category" + error
     );
+    next(error);
   }
 };
 
@@ -40,7 +45,8 @@ VehicleDetails.buildVehicleDetailsById = async function (req, res, next) {
     });
   } catch (error) {
     console.error("Sorry, we could not build this vehicle" + error);
-  } 
+    next(error);
+  }
 };
 
 module.exports = { invCont, VehicleDetails };
