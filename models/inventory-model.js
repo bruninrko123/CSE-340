@@ -3,9 +3,13 @@ const pool = require("../database/");
 //Get all classification data
 
 async function getClassifications() {
-  return await pool.query(
-    "SELECT * FROM public.classification ORDER BY classification_name"
-  );
+  try {
+    return await pool.query(
+      "SELECT * FROM public.classification ORDER BY classification_name"
+    );
+  } catch (error) {
+    console.error("getClassifications erorr");
+  }
 }
 
 // get all the inventory items and classification_name by classification_id
@@ -39,4 +43,8 @@ async function getVehicleDetailsById(vehicleId) {
   }
 }
 
-module.exports = { getClassifications, getInventoryByClassificationId, getVehicleDetailsById };
+module.exports = {
+  getClassifications,
+  getInventoryByClassificationId,
+  getVehicleDetailsById,
+};

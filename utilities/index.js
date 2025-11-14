@@ -4,7 +4,9 @@ const Util = {};
 //constructs the nav HTML unordered list
 Util.getNav = async function (req, res, next) {
   let data = await invModel.getClassifications();
-  let list = "<ul>";
+  let list;
+
+  list = "<ul>";
   list += '<li><a href="/" title="Home Page">Home</a></li>';
   data.rows.forEach((row) => {
     list += "<li>";
@@ -75,17 +77,38 @@ Util.buildClassificationGrid = async function (data) {
 };
 
 Util.buildDetailsPage = async function (data) {
-  
   let details;
+  let formattedPrice = Number(data.inv_price).toLocaleString("en-US", {
+    minimumFractionDigits: 2,
+  });
   if (data) {
     details = `
-    <h1>${data.inv_model} ${data.inv_make} - ${data.inv_year}<h1>
-    <img src="${data.inv_image}" alt="${data.inv_model} ${data.inv_make} image">
-    <p>${data.inv_price}</p>
-    <p>${data.inv_description}</p>`;
+    <div class="content">
+    <section class="image">
+    <img src="${data.inv_image}" alt="${data.inv_model} ${
+      data.inv_make
+    } image" width="600">
+    </section>
+    <section class="info">
+    <div class="mileage-pric">
+    <p id="mileage">MILEAGE<BR>${Number(data.inv_miles).toLocaleString(
+      "en-US"
+    )}</p>
+    <p id="price">$${formattedPrice}</p>
+    </div>
+    <p id="color"><strong>Color:</strong> ${data.inv_color}</p>
+    <p class="description">Description:<br>${data.inv_description}</p>
+    </section>
+    </div>`;
   } else {
     details = `<p>Sorry, we couldn't find this vehicle's details</p>`;
   }
   return details;
 };
+
+//middleware for handling errors
+//wrap other functions in this for General error handling
+
+Util.handleErrors = (fn) => (req, res, next) =>
+  Promise.resolve(fn(req, res, next)).catch(next);
 module.exports = Util;
