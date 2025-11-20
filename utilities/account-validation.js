@@ -86,12 +86,23 @@ validate.checkRegData = async (req, res, next) => {
 validate.loginRules = () => {
   return [
     //first name is required and must be string
-    body("account_firstname")
+    body("account_email")
       .trim()
       .escape()
       .notEmpty()
-      .isLength({ min: 1 })
-      .withMessage("Please provide a first name."), // on error this message is sent
+      .isEmail()
+      .normalizeEmail()
+      .withMessage("A valid email is required.")
+      .custom(async (account_email) => {
+        const emailExists = await accountModel.checkExistingEmail(
+          account_email
+        );
+        if (!emailExists) {
+          throw new Error(
+            "Email exits. Please log in or use a different email"
+          );
+        }
+      }),
 
     //password is required and must be a strong password
     body("account_password")
@@ -109,7 +120,7 @@ validate.loginRules = () => {
 };
 
 validate.checkLogData = async (req, res, next) => {
-  const { account_firstname } = req.body;
+  const { account_email } = req.body;
   let errors = [];
   errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -118,7 +129,7 @@ validate.checkLogData = async (req, res, next) => {
       errors,
       title: "Login",
       nav,
-      account_firstname,
+      account_email,
     });
     return;
   }
