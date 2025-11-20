@@ -73,17 +73,6 @@ async function registerAccount(req, res) {
   }
 }
 
-/* ****************************************
- *  Process login
- * *************************************** */
-// async function login(req, res) {
-//   let nav = await utilities.getNav();
-//   const {
-//     account_firstname,
-//     account_password,
-//   } = req.body;
 
-  
-// }
 
 module.exports = { buildLogin, buildRegistration, registerAccount };

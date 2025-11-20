@@ -25,9 +25,10 @@ router.post(
   "/login",
   regValidate.loginRules(),
   regValidate.checkLogData,
-  (req, res) => {
+  utilities.handleErrors((req, res) => {
     res.status(200).send("login process");
-  }
+    
+  })
 );
 
 module.exports = router;
