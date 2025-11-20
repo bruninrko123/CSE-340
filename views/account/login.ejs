@@ -1,0 +1,16 @@
+<h1><%- title %></h1>
+<%- messages() %>
+
+<form action="/account/login" method="post" class="loginForm">
+    <label for="account_email">Email:
+        <input type="email" name="account_email" id="account_email" value = " <%= locals.account_firstname %>" required>
+    </label>
+    <label for="account_password">Password:
+    <div><i>The password should have at least 12 characters, at least 1 uppercase character, 1 number and 1 special character</i></div>
+        <input type="password" name="account_password" id="account_password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$"  required>
+    </label>
+    <div>
+    <button type="submit">Log in</button>
+    <p class="NoAccountText">No account? <a href="/account/registration">Sign-up</a></p>
+    </div>
+</form>

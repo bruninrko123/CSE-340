@@ -20,7 +20,7 @@ Util.getNav = async function (req, res, next) {
       "</a>";
     list += "</li>";
   });
-  
+
   list += "</ul>";
   return list;
 };
@@ -107,6 +107,50 @@ Util.buildDetailsPage = async function (data) {
   return details;
 };
 
+Util.buildForm = async function () {
+  let form = `
+  <form action="/account/login" method="post" class="loginForm">
+    <label for="account_email">Email:
+        <input type="email" name="account_email" id="account_email" required>
+    </label>
+    <label for="account_password">Password:
+    <div><i>The password should have at least 12 characters, at least 1 uppercase character, 1 number and 1 special character</i></div>
+        <input type="password" name="account_password" id="account_password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$"  required>
+    </label>
+    <div>
+    <button type="submit">Log in</button>
+    <p class="NoAccountText">No account? <a href="/account/registration">Sign-up</a></p>
+    </div>
+</form>`;
+
+  return form;
+};
+
+Util.buildRegistrationPage = async function () {
+  let regform = `
+  <form action="/account/registration" method="post" class="loginForm">
+    <label for="account_firstname">First name:
+        <input type="text" name="account_firstname" id="account_firstname" value=" <%= locals.account_firstname %>"  required >
+    </label>
+    <label for="account_lastname">Last name:
+        <input type="text" name="account_lastname" id="account_lastname" value="<%= locals.account_lastname %> required>
+    </label>
+    <label for="account_email">Email address:
+        <input type="email" name="account_email" id="account_email" value="<%= locals.account_email %> required>
+    </label>
+    <label for="account_password">Password: 
+    <div><i>The password should have at least 12 characters, at least 1 uppercase character, 1 number and 1 special character</i></div>
+        <input type="password" name="account_password" id="account_password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$" required>
+    </label>
+    
+    <div>
+    <button type="submit">Register</button>
+    
+    </div>
+</form>`;
+
+  return regform;
+};
 //middleware for handling errors
 //wrap other functions in this for General error handling
 
