@@ -151,6 +151,23 @@ Util.buildRegistrationPage = async function () {
 
   return regform;
 };
+
+Util.buildClassificationList = async function name() {
+  const classificationsData = await invModel.getClassifications();
+  // const select = `<select name="classification_id" id="classification_id" value="<%= locals.inv_year %>"
+  //     required ></select>`;
+  let options = "";
+  options += `<select name="classification_id" id="classification_id"  required> <option value="" disabled selected>Select a classification</option>`;
+  classificationsData.rows.forEach((classification) => {
+    options += `
+    <option value="${classification.classification_id}">${classification.classification_name}</option>`;
+  });
+
+  options += `</select>`;
+
+  return options;
+};
+
 //middleware for handling errors
 //wrap other functions in this for General error handling
 

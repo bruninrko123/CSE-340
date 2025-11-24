@@ -8,7 +8,9 @@
   background-color: rgb(154, 154, 154);
   padding: 20px;
   justify-items: center;
-  & input {
+  & input,
+  select,
+  textarea {
     display: block;
     justify-self: center;
     width: 90%;

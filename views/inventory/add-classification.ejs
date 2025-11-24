@@ -1,0 +1,27 @@
+<%- title %>
+<h1><%- title %></h1>
+
+<%- messages() %> 
+
+<% if (errors) { %>
+<ul class="notice">
+  <% errors.array().forEach(error => { %>
+  <li><%= error.msg %></li>
+  <% }) %>
+</ul>
+<% } %>
+
+<form action="#" method="post" class="loginForm">
+  <label for="classification_name"
+    >New Classification name:
+    <input
+      type="text"
+      name="classification_name"
+      id="classification_name"
+      value="<%= locals.classification_name %>"
+      required
+    />
+  </label>
+
+  <button type="submit">Create new Classification</button>
+</form>
