@@ -17,7 +17,7 @@ const utilities = require("./utilities/");
 const session = require("express-session");
 const pool = require("./database/");
 const accountRoute = require("./routes/accountRoute");
-const bodyParser = require("body-parser");
+// const bodyParser = require("body-parser");
 
 /* ***********************
  * Middleware
@@ -43,8 +43,8 @@ app.use(function (req, res, next) {
 });
 
 //making the body parser available
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 /* ***********************
  * View Engine and Templates
