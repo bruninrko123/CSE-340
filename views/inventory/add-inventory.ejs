@@ -55,22 +55,42 @@
       id="inv_description"
       placeholder="Write a description here"
       required
-    ></textarea>
+    >
+<%= locals.inv_description %></textarea
+    >
   </label>
 
   <label for="inv_price"
     >Price:
-    <input type="number" name="inv_price" id="inv_price" required />
+    <input
+      type="number"
+      name="inv_price"
+      id="inv_price"
+      value="<%= locals.inv_price %>"
+      required
+    />
   </label>
 
   <label for="inv_miles"
     >Miles:
-    <input type="number" name="inv_miles" id="inv_miles" required />
+    <input
+      type="number"
+      name="inv_miles"
+      id="inv_miles"
+      value="<%= locals.inv_miles %>"
+      required
+    />
   </label>
 
   <label for="inv_color"
     >Color:
-    <input type="text" name="inv_color" id="inv_color" required />
+    <input
+      type="text"
+      name="inv_color"
+      id="inv_color"
+      value="<%= locals.inv_color %>"
+      required
+    />
   </label>
 
   <label for=""></label>
@@ -79,7 +99,6 @@
 </form>
 
 <script>
-  
   // doing the year select
   const yearSelect = document.getElementById("inv_year");
   const current_year = new Date().getFullYear();

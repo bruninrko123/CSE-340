@@ -112,6 +112,14 @@ validateInv.checkAddInventoryRules = async (req, res, next) => {
       title: "Add New Vehicle",
       nav,
       classificationSelect,
+      classification_id,
+      inv_make,
+      inv_model,
+      inv_year,
+      inv_description,
+      inv_price,
+      inv_miles,
+      inv_color,
     });
     return;
   }
