@@ -17,6 +17,7 @@ const utilities = require("./utilities/");
 const session = require("express-session");
 const pool = require("./database/");
 const accountRoute = require("./routes/accountRoute");
+const cookieParser = require("cookie-parser");
 // const bodyParser = require("body-parser");
 
 /* ***********************
@@ -53,10 +54,17 @@ app.set("view engine", "ejs");
 app.use(expressLayouts);
 app.set("layout", "./layouts/layout");
 
+app.use(static);
+
+//cookie parser middleware
+app.use(cookieParser());
+
+//jwt universal middleware
+app.use(utilities.checkJWTToken);
+
 /* ***********************
  * Routes
  *************************/
-app.use(static);
 
 //index route
 app.get("/", utilities.handleErrors(baseController.buildHome));

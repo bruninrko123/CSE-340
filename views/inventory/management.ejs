@@ -2,5 +2,20 @@
 <h1><%- title %></h1>
 <%- messages() %>
 
-<a href="/inv/add-classification" class="managementText">Add a classification</a>
+<a href="/inv/add-classification" class="managementText"
+  >Add a classification</a
+>
 <a href="/inv/add-inventory" class="managementText">Add a new vehicle</a>
+
+<h2>Manage Inventory</h2>
+<p>
+  Select a classification to see the list of vehicles belonging to that
+  classification
+</p>
+
+<%- classificationSelect %>
+
+<table id="inventoryDisplay"></table>
+<noscript>JavaScript must be enabled to use this page</noscript>
+
+<script src="../../js/inventory.js"></script>

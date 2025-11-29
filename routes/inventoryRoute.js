@@ -48,4 +48,23 @@ router.post(
   utilities.handleErrors(management.addInventory)
 );
 
+// route to get inventory data
+router.get(
+  "/getInventory/:classification_id",
+  utilities.handleErrors(management.getInventoryJSON)
+);
+
+//route to modify inventory
+router.get(
+  "/edit/:inv_id",
+  utilities.handleErrors(management.buildEditInventoryPage)
+);
+
+router.post(
+  "/update",
+  invValidate.newInventoryRules(),
+  invValidate.checkUpdateData,
+  utilities.handleErrors(management.updateInventory)
+);
+
 module.exports = router;

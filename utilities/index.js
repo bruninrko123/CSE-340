@@ -1,5 +1,7 @@
 const invModel = require("../models/inventory-model");
 const Util = {};
+const jwt = require("jsonwebtoken");
+require("dotenv").config();
 
 //constructs the nav HTML unordered list
 Util.getNav = async function (req, res, next) {
@@ -152,20 +154,60 @@ Util.buildRegistrationPage = async function () {
   return regform;
 };
 
-Util.buildClassificationList = async function name() {
+Util.buildClassificationList = async function name(selectedId = null) {
   const classificationsData = await invModel.getClassifications();
   // const select = `<select name="classification_id" id="classification_id" value="<%= locals.inv_year %>"
   //     required ></select>`;
   let options = "";
-  options += `<select name="classification_id" id="classification_id"  required> <option value="" disabled selected>Select a classification</option>`;
+  options += `<select name="classification_id" id="classification_id"  required> <option>Select a classification</option>`;
   classificationsData.rows.forEach((classification) => {
+
+    let isSelected =
+      classification.classification_id == selectedId ? "selected" : "";
+
     options += `
-    <option value="${classification.classification_id}">${classification.classification_name}</option>`;
+    <option value="${classification.classification_id}" ${isSelected}>${classification.classification_name}</option>`;
   });
 
   options += `</select>`;
 
   return options;
+};
+
+/* ****************************************
+ * Middleware to check token validity
+ **************************************** */
+Util.checkJWTToken = (req, res, next) => {
+  if (req.cookies.jwt) {
+    jwt.verify(
+      req.cookies.jwt,
+      process.env.ACCESS_TOKEN_SECRET,
+      function (err, accountData) {
+        if (err) {
+          req.flash("Please log in");
+          req.clearCookie("jwt");
+          return res.redirect("account/login");
+        }
+        res.locals.accountData = accountData;
+        res.locals.loggedin = 1;
+        next();
+      }
+    );
+  } else {
+    next();
+  }
+};
+
+/* ****************************************
+ *  Check Login
+ * ************************************ */
+Util.checkLogin = (req, res, next) => {
+  if (res.locals.loggedin) {
+    next();
+  } else {
+    req.flash("notice", "Please log in.");
+    return res.redirect("/account/login");
+  }
 };
 
 //middleware for handling errors
