@@ -8,6 +8,7 @@ const {
   VehicleDetails,
   management,
 } = require("../controllers/invController");
+const validateInv = require("../utilities/inventory-validation");
 
 router.get(
   "/type/:classificationId",
@@ -21,6 +22,7 @@ router.get(
 
 router.get(
   "/management",
+  validateInv.checkAccountType,
   utilities.handleErrors(management.buildManagementPage)
 );
 
@@ -66,5 +68,12 @@ router.post(
   invValidate.checkUpdateData,
   utilities.handleErrors(management.updateInventory)
 );
+
+router.get(
+  "/delete/:inv_id",
+  utilities.handleErrors(management.buildDeleteInventoryPage)
+);
+
+router.post("/delete", utilities.handleErrors(management.deleteInventory));
 
 module.exports = router;

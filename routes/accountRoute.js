@@ -7,6 +7,7 @@ const {
   registerAccount,
   accountLogin,
   buildAccountManagementView,
+  accountLogout
 } = require("../controllers/accountController");
 const regValidate = require("../utilities/account-validation");
 
@@ -37,5 +38,9 @@ router.post(
   regValidate.checkLogData,
   utilities.handleErrors(accountLogin)
 );
+
+router.get("/logout",
+  utilities.handleErrors(accountLogout)
+)
 
 module.exports = router;

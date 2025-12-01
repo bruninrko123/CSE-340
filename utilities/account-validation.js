@@ -135,4 +135,6 @@ validate.checkLogData = async (req, res, next) => {
   }
   next();
 };
+
+
 module.exports = validate;

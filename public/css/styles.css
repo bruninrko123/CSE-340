@@ -4,7 +4,7 @@
 *:after {
   box-sizing: border-box;
 }
-#homeh1{
+#homeh1 {
   justify-self: start;
 }
 header {
@@ -17,6 +17,11 @@ header {
   & span {
     font-size: 2rem;
   }
+
+  & .loggedinHeader {
+    display: flex;
+    gap: 20px;
+  }
 }
 
 nav > ul {
@@ -27,16 +32,15 @@ nav > ul {
   color: white;
   padding: 10px;
 
-  & a{
+  & a {
     color: white;
     text-decoration: none;
   }
 }
 
-.notice{
+.notice {
   color: red;
   font-size: 1.3rem;
-  
 }
 
 .hero-content {

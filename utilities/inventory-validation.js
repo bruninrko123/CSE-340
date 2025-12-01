@@ -225,4 +225,24 @@ validateInv.checkUpdateData = async (req, res, next) => {
   }
   next();
 };
+
+/* ****************************************
+ *  Check Login
+ * ************************************ */
+
+validateInv.checkAccountType = async (req, res, next) => {
+  
+  const account_type = res.locals.accountData.account_type;
+
+  if (account_type != "Client") {
+    next();
+  } else {
+    req.flash(
+      "notice",
+      "Not Authorized. Must be an employee or manager to access this information"
+    );
+    res.status(401).redirect("/account/login");
+  }
+};
+
 module.exports = validateInv;
