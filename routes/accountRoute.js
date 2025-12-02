@@ -7,9 +7,13 @@ const {
   registerAccount,
   accountLogin,
   buildAccountManagementView,
-  accountLogout
+  accountLogout,
+  updateAccountInformationView,
+  updateAccount,
+  updatePasswordProcess
 } = require("../controllers/accountController");
 const regValidate = require("../utilities/account-validation");
+const { updatePassword } = require("../models/account-model");
 
 //default route
 router.get(
@@ -39,8 +43,22 @@ router.post(
   utilities.handleErrors(accountLogin)
 );
 
-router.get("/logout",
-  utilities.handleErrors(accountLogout)
-)
+router.get("/logout", utilities.handleErrors(accountLogout));
+
+router.get("/update", utilities.handleErrors(updateAccountInformationView));
+
+router.post(
+  "/update",
+  regValidate.updateAccountRules(),
+  regValidate.checkUpdateAccountRules,
+  utilities.handleErrors(updateAccount)
+);
+
+router.post(
+  "/updatePassword",
+  regValidate.updatePasswordRules(),
+  regValidate.checkUpdatePasswordRules,
+  utilities.handleErrors(updatePasswordProcess)
+);
 
 module.exports = router;

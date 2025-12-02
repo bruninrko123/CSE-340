@@ -28,6 +28,7 @@ router.get(
 
 router.get(
   "/add-classification",
+  invValidate.checkAccountType,
   utilities.handleErrors(management.buildAddClassificationPage)
 );
 
@@ -35,11 +36,13 @@ router.post(
   "/add-classification",
   invValidate.addClassificationRules(),
   invValidate.checkAddClassificationData,
+  invValidate.checkAccountType,
   utilities.handleErrors(management.addClassification)
 );
 
 router.get(
   "/add-inventory",
+  invValidate.checkAccountType,
   utilities.handleErrors(management.buildAddInventoryPage)
 );
 
@@ -47,6 +50,7 @@ router.post(
   "/add-inventory",
   invValidate.addInventoryRules(),
   invValidate.checkAddInventoryRules,
+  invValidate.checkAccountType,
   utilities.handleErrors(management.addInventory)
 );
 
