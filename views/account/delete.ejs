@@ -1,0 +1,32 @@
+<h1><%- title %></h1>
+<%- messages() %> <% if (errors) { %>
+<ul class="notice">
+  <% errors.array().forEach(error => { %>
+  <li><%= error.msg %></li>
+  <% }) %>
+</ul>
+<% } %>
+
+<form action="/account/delete" method="post" class="loginForm">
+    
+
+    <i>Deleting an account is an action that can not be undone, be careful! </i>
+    <label for="account_email">Email address:
+        <input type="email" name="account_email" id="account_email"  required>
+    </label>
+
+    <label for="account_email_confirmation">Email address confirmation:
+        <input type="email" name="account_email_confirmation" id="account_email_confirmation"  required>
+    </label>
+     
+    <div>
+    <button type="submit">Delete Account</button>
+    <input type="hidden" name="account_id"
+<% if(locals.account_id) { %> value="<%= locals.account_id %>"
+<% } %>>
+    </div>
+</form>
+
+
+
+</form>

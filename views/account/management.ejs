@@ -16,5 +16,36 @@
     
      <% } %>
 
-  <p><a href="/account/update">Update Account Information Link</a></p>
+     <h1><%- title %></h1>
+<%- messages() %> <% if (errors) { %>
+<ul class="notice">
+  <% errors.array().forEach(error => { %>
+  <li><%= error.msg %></li>
+  <% }) %>
+</ul>
+<% } %>
+
+ <% if(locals.accountData.account_type == "Client") { %>
+     <h2>Hello, <%= locals.accountData.account_firstname %></h2>
+    <% } else{ %>
+    <h2>Hello, <%= locals.accountData.account_firstname %></h2>
+    <h3>Inventory management</h3>
+    <p><a href="/inv/management">Click to go to the inventory management page</a></p>
+    
+     <% } %>
+
+  
+
+  <% if(locals.accountData.account_type == "Admin") { %>
+     <p><a href="/account/delete">Delete Accounts</a></p>
+    <p><a href="/account/update">Update Account Information Link</a></p>
+    <% } else{ %>
+    <p><a href="/account/update">Update Account Information Link</a></p>
+    
+     <% } %>
+
+
+
+
+  
 

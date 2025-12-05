@@ -83,10 +83,25 @@ async function updatePassword(account_id, hashedPassword) {
   }
 }
 
+async function deleteAccount(account_email, account_email_confirmation) {
+  if (account_email == account_email_confirmation) {
+    try {
+      const sql = `DELETE FROM public.account WHERE account_email = $1 RETURNING *`;
+      const data = await pool.query(sql, [account_email]);
+      return data;
+    } catch (error) {
+      new Error("Delete Account Error");
+    }
+  } else {
+    new Error("The email and confirmation email don't match");
+  }
+}
+
 module.exports = {
   registerAccount,
   checkExistingEmail,
   getAccountByEmail,
   updateAccount,
-  updatePassword
+  updatePassword,
+  deleteAccount
 };

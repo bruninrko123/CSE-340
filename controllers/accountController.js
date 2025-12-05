@@ -275,6 +275,39 @@ async function updatePasswordProcess(req, res) {
   }
 }
 
+async function deleteAccountView(req, res) {
+  let nav = await utilities.getNav();
+
+  res.render("account/delete", {
+    title: "Delete Accounts",
+    nav,
+    errors: null,
+  });
+}
+
+async function deleteAccountProcess(req, res) {
+  const nav = await utilities.getNav();
+
+  const { account_email, account_email_confirmation } = req.body;
+
+  const deleteResult = await accountModel.deleteAccount(
+    account_email,
+    account_email_confirmation
+  );
+
+  if (deleteResult) {
+    req.flash("notice", "The account has been deleted successfully.");
+    res.redirect("/account/");
+  } else {
+    req.flash("notice", "There was an error processing the deletion.");
+    res.render("account/delete", {
+      title: "Delete account",
+      nav,
+      errors: null,
+    });
+  }
+}
+
 module.exports = {
   buildLogin,
   buildRegistration,
@@ -284,5 +317,7 @@ module.exports = {
   accountLogout,
   updateAccountInformationView,
   updateAccount,
-  updatePasswordProcess
+  updatePasswordProcess,
+  deleteAccountView,
+  deleteAccountProcess,
 };

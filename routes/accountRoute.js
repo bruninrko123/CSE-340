@@ -10,7 +10,9 @@ const {
   accountLogout,
   updateAccountInformationView,
   updateAccount,
-  updatePasswordProcess
+  updatePasswordProcess,
+  deleteAccountView,
+  deleteAccountProcess,
 } = require("../controllers/accountController");
 const regValidate = require("../utilities/account-validation");
 const { updatePassword } = require("../models/account-model");
@@ -60,5 +62,13 @@ router.post(
   regValidate.checkUpdatePasswordRules,
   utilities.handleErrors(updatePasswordProcess)
 );
+
+router.get(
+  "/delete",
+  regValidate.checkAccountType,
+  utilities.handleErrors(deleteAccountView)
+);
+
+router.post("/delete", utilities.handleErrors(deleteAccountProcess));
 
 module.exports = router;

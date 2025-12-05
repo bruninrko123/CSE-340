@@ -214,7 +214,7 @@ validate.updatePasswordRules = () => {
 
 validate.checkUpdatePasswordRules = async (req, res, next) => {
   const nav = await utilities.getNav();
-  
+
   let errors = [];
   errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -224,10 +224,24 @@ validate.checkUpdatePasswordRules = async (req, res, next) => {
       account_id: res.locals.account_id,
       account_email: res.locals.account_email,
       account_firstname: res.locals.account_firstname,
-      account_lastname:res.locals.account_lastname,
+      account_lastname: res.locals.account_lastname,
     });
     return;
   }
   next();
+};
+
+validate.checkAccountType = async (req, res, next) => {
+  const account_type = res.locals.accountData.account_type;
+
+  if (account_type == "Admin") {
+    next();
+  } else {
+    req.flash(
+      "notice",
+      "Not Authorized. Must be an Admin to access this information"
+    );
+    res.status(401).redirect("/account/login");
+  }
 };
 module.exports = validate;
